@@ -1,72 +1,66 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
+const pokeContainer = document.querySelector("#pokeContainer");
+const pokemonCount = 151
+const colors = {
+     fire: '#f5cbc8',
+    grass: '#DEFDE0',
+    electric: '#FCF7DE',
+    water: '#c7ebfc',
+    ground: '#caaf94',
+    rock: '#bdbd7c',
+    fairy: '#e6b7df',
+    poison: '#97e4a6',
+    bug: '#a2d19d',
+    dragon: '#97b3e6',
+    psychic: '#f8bcee',
+    flying: '#F5F5F5',
+    fighting: '#E6E0D4',
+    normal: '#F5F5F5'
 }
 
-body {
-    background: linear-gradient(to right, #e0c8e7, #eb93e4);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+const mainTypes = Object.keys(colors);
 
-h1 {
-    letter-spacing: 5px;
-}
-
-.pokeContainer {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.pokemon {
-    background-color: #eee;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(100, 100, 100, 0.5);
-    margin: 10px;
-    padding: 20px;
-    text-align: center;
-}
-
-.imgContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    text-align: center;
-}
-
-.imgContainer img {
-    max-width: 90%;
-}
-
-.info {
-    margin-top: 20px;
-}
-
-.number {
-    background-color: rgba(0, 0, 0, 0.15);
-    padding: 2px 13px;
-    border-radius: 10px;
-    font-size: 0.8rem;
-}
-
-.name {
-    margin-top: 15px 0 7px;
-    letter-spacing: 1.5px;
+const fetchPokemons = async () => {
+    for (let i = 1; i <= pokemonCount; i++) {
+        await getPokemon(i)
+    }
 
 }
+
+const getPokemon = async (id) => {
+    const url = `https://pokeapi.co/api/v2/pokemon/${id}`
+    const resp = await fetch(url)
+    const data = await resp.json()
+    createPokemonCard(data)
+}
+
+createPokemonCard = (poke) => {
+    const card = document.createElement('div')
+    card.classList.add('pokemon')
+
+    const name = poke.name[0].toUpperCase() + poke.name.slice(1)
+    const id = poke.id.toString().padStart(3, '0')
+
+    const  pokeTypes = poke.types.map(type => type.type.name)
+    const   type = mainTypes.find(type => pokeTypes.indexOf(type) > -1)
+    const color = colors[type]
+
+    card.style.backgroundColor = color
+j
+    const pokemonInnerHTML = `
+      <div class="imgContainer">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.id}.png" alt="${name}">
+            </div>
+
+            <div class="info">
+                <span class="number">#${id}</span>
+                <h3 class="name">${name}</h3>
+                <small class="type">Type: ${type}</small>
+            </div>
+            `
+            card.innerHTML = pokemonInnerHTML
+
+            pokeContainer.appendChild(card)
+}
+
+        fetchPokemons()
+
