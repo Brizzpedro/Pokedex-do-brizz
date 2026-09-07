@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pokedex</title>
+    <title>Pokédex Brizz</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,29 +13,44 @@
 <body>
 
     <header class="header">
+
         <div class="logo">
-            <span>POKEDEX</span>
-            <strong>BRIZZ</strong>
+            <span>POKÉDEX</span> <strong>BRIZZ</strong>
         </div>
 
-        <p>Explore o mundo Pokémon</p>
-    </header>
+        <div class="controls">
 
-    <main>
+            <button type="button" id="randomPokemon">
+                🎲 ALEATÓRIO
+            </button>
 
-        <section class="controls">
+            <button type="button" id="guessGame">
+                🎮 QUEM É?
+            </button>
 
-            <div class="searchBox">
-                <span>🔎</span>
-                <input
-                    type="text"
-                    id="search"
-                    placeholder="Pesquisar Pokémon..."
-                >
-            </div>
+            <button type="button" id="battleButton">
+                ⚔️ BATALHAR
+            </button>
+
+            <button type="button" id="teamBattleButton">
+                ⚔️ BATALHA DE TIMES
+            </button>
+
+        </div>
+
+        <div class="searchBox">
+
+            <input
+                type="text"
+                id="search"
+                placeholder="Pesquisar Pokémon..."
+                autocomplete="off"
+            >
 
             <select id="typeFilter">
+
                 <option value="all">Todos os tipos</option>
+
                 <option value="normal">Normal</option>
                 <option value="fire">Fogo</option>
                 <option value="water">Água</option>
@@ -53,61 +69,101 @@
                 <option value="dark">Sombrio</option>
                 <option value="steel">Aço</option>
                 <option value="fairy">Fada</option>
+
             </select>
 
-            <button id="randomPokemon">🎲 ALEATÓRIO</button>
+        </div>
 
-            <button id="guessGame">🎮 QUEM É?</button>
+        <div class="generations">
 
-            <button id="battleButton">⚔️ BATALHAR</button>
-
-        </section>
-
-        <section class="generations">
-
-            <button class="generation active" data-generation="all">
+            <button
+                type="button"
+                class="generation active"
+                data-generation="all"
+            >
                 TODOS
             </button>
 
-            <button class="generation" data-generation="1">
+            <button
+                type="button"
+                class="generation"
+                data-generation="1"
+            >
                 I
             </button>
 
-            <button class="generation" data-generation="2">
+            <button
+                type="button"
+                class="generation"
+                data-generation="2"
+            >
                 II
             </button>
 
-            <button class="generation" data-generation="3">
+            <button
+                type="button"
+                class="generation"
+                data-generation="3"
+            >
                 III
             </button>
 
-            <button class="generation" data-generation="4">
+            <button
+                type="button"
+                class="generation"
+                data-generation="4"
+            >
                 IV
             </button>
 
-            <button class="generation" data-generation="5">
+            <button
+                type="button"
+                class="generation"
+                data-generation="5"
+            >
                 V
             </button>
 
-            <button class="generation" data-generation="6">
+            <button
+                type="button"
+                class="generation"
+                data-generation="6"
+            >
                 VI
             </button>
 
-            <button class="generation" data-generation="7">
+            <button
+                type="button"
+                class="generation"
+                data-generation="7"
+            >
                 VII
             </button>
 
-            <button class="generation" data-generation="8">
+            <button
+                type="button"
+                class="generation"
+                data-generation="8"
+            >
                 VIII
             </button>
 
-            <button class="generation" data-generation="9">
+            <button
+                type="button"
+                class="generation"
+                data-generation="9"
+            >
                 IX
             </button>
 
-        </section>
+        </div>
 
-        <section class="regionTitle">
+    </header>
+
+
+    <section class="regionTitle">
+
+        <div>
 
             <span id="regionGeneration">
                 TODAS AS GERAÇÕES
@@ -117,31 +173,42 @@
                 TODOS OS POKÉMON
             </h2>
 
-            <p id="regionNumber">
-                1025 Pokémon
-            </p>
+        </div>
 
-        </section>
+        <strong id="regionNumber">
+            1025 Pokémon
+        </strong>
 
-        <section
-            id="pokeContainer"
-            class="pokeContainer"
-        ></section>
+    </section>
+
+
+    <main
+        class="pokeContainer"
+        id="pokeContainer"
+    >
+
+        <p class="loading">
+            Carregando Pokémon...
+        </p>
 
     </main>
 
+
+    <!-- DETALHES -->
+
     <div
-        id="detailsOverlay"
         class="detailsOverlay"
+        id="detailsOverlay"
     >
 
         <div class="detailsCard">
 
             <button
+                type="button"
+                class="closeButton"
                 id="closeDetails"
-                class="closeDetails"
             >
-                ✕
+                ×
             </button>
 
             <div id="detailsContent"></div>
@@ -150,21 +217,34 @@
 
     </div>
 
+
+    <!-- QUEM É ESSE POKÉMON -->
+
     <div
-        id="gameOverlay"
         class="gameOverlay"
+        id="gameOverlay"
     >
 
         <div class="gameCard">
 
             <button
+                type="button"
+                class="closeButton"
                 id="closeGame"
-                class="closeGame"
             >
-                ✕
+                ×
             </button>
 
-            <h2>🎮 QUEM É ESSE POKÉMON?</h2>
+            <h2>
+                QUEM É ESSE POKÉMON?
+            </h2>
+
+            <div class="score">
+
+                Pontuação:
+                <strong id="score">0</strong>
+
+            </div>
 
             <img
                 id="gameImage"
@@ -176,43 +256,44 @@
             <input
                 type="text"
                 id="gameInput"
-                placeholder="Digite o nome do Pokémon..."
+                placeholder="Digite o nome..."
                 autocomplete="off"
             >
 
-            <button id="gameSubmit">
+            <button
+                type="button"
+                id="gameSubmit"
+            >
                 RESPONDER
             </button>
 
-            <div id="gameResult"></div>
-
-            <div class="score">
-                Pontuação: <span id="score">0</span>
-            </div>
+            <p id="gameResult"></p>
 
         </div>
 
     </div>
 
+
+    <!-- BATALHA 1X1 -->
+
     <div
+        class="detailsOverlay battleOverlay"
         id="battleOverlay"
-        class="battleOverlay"
     >
 
-        <div class="battleModal">
+        <div class="detailsCard battleModal">
 
             <button
+                type="button"
+                class="closeButton"
                 id="closeBattle"
-                class="closeBattle"
             >
-                ✕
+                ×
             </button>
 
-            <h2>⚔️ BATALHA POKÉMON</h2>
-
-            <p class="battleSubtitle">
-                Escolha dois Pokémon para começar a batalha
-            </p>
+            <h2>
+                ⚔️ BATALHA POKÉMON
+            </h2>
 
             <div class="battleSelectors">
 
@@ -230,18 +311,32 @@
                         autocomplete="off"
                     >
 
-                    <select id="battlePokemon1"></select>
+                    <select id="battlePokemon1">
+
+                        <option value="">
+                            Escolha o Pokémon
+                        </option>
+
+                    </select>
 
                     <div
                         id="preview1"
                         class="battlePreview"
-                    ></div>
+                    >
+
+                        <span>
+                            Escolha um Pokémon
+                        </span>
+
+                    </div>
 
                 </div>
+
 
                 <div class="battleVS">
                     VS
                 </div>
+
 
                 <div class="battleSelector">
 
@@ -257,23 +352,37 @@
                         autocomplete="off"
                     >
 
-                    <select id="battlePokemon2"></select>
+                    <select id="battlePokemon2">
+
+                        <option value="">
+                            Escolha o Pokémon
+                        </option>
+
+                    </select>
 
                     <div
                         id="preview2"
                         class="battlePreview"
-                    ></div>
+                    >
+
+                        <span>
+                            Escolha um Pokémon
+                        </span>
+
+                    </div>
 
                 </div>
 
             </div>
 
+
             <button
+                type="button"
                 id="startBattle"
-                class="startBattle"
             >
                 ⚔️ COMEÇAR BATALHA
             </button>
+
 
             <div
                 id="battleArena"
@@ -284,7 +393,170 @@
 
     </div>
 
+
+    <!-- BATALHA DE TIMES -->
+
+    <div
+        class="detailsOverlay teamBattleOverlay"
+        id="teamBattleOverlay"
+    >
+
+        <div class="detailsCard teamBattleModal">
+
+            <button
+                type="button"
+                class="closeButton"
+                id="closeTeamBattle"
+            >
+                ×
+            </button>
+
+
+            <h2>
+                ⚔️ BATALHA DE TIMES
+            </h2>
+
+
+            <p class="teamBattleSubtitle">
+                RED × BLUE
+            </p>
+
+
+            <div class="teamsContainer">
+
+                <div class="teamColumn redTeamColumn">
+
+                    <h3>
+                        🔴 TIME RED
+                    </h3>
+
+                    <div
+                        id="redTeam"
+                        class="teamPokemonList"
+                    ></div>
+
+                </div>
+
+
+                <div class="teamColumn blueTeamColumn">
+
+                    <h3>
+                        🔵 TIME BLUE
+                    </h3>
+
+                    <div
+                        id="blueTeam"
+                        class="teamPokemonList"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="teamFightArena">
+
+                <div class="teamFighter">
+
+                    <img
+                        id="redFighterImage"
+                        src=""
+                        alt="Pokémon do time Red"
+                    >
+
+                    <strong id="redFighterName">
+                        ---
+                    </strong>
+
+                    <div class="teamHPBar">
+
+                        <div
+                            id="redHP"
+                            class="teamHPFill"
+                        ></div>
+
+                    </div>
+
+                    <span id="redHPText">
+                        0 HP
+                    </span>
+
+                </div>
+
+
+                <div class="teamFightCenter">
+
+                    <strong>
+                        VS
+                    </strong>
+
+                    <span id="teamBattleMessage">
+                        Sorteie os times!
+                    </span>
+
+                    <strong
+                        id="teamBattleResult"
+                        class="teamBattleWinner"
+                    ></strong>
+
+                </div>
+
+
+                <div class="teamFighter">
+
+                    <img
+                        id="blueFighterImage"
+                        src=""
+                        alt="Pokémon do time Blue"
+                    >
+
+                    <strong id="blueFighterName">
+                        ---
+                    </strong>
+
+                    <div class="teamHPBar">
+
+                        <div
+                            id="blueHP"
+                            class="teamHPFill"
+                        ></div>
+
+                    </div>
+
+                    <span id="blueHPText">
+                        0 HP
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="teamBattleButtons">
+
+                <button
+                    type="button"
+                    id="newTeamsButton"
+                >
+                    🎲 NOVOS TIMES
+                </button>
+
+                <button
+                    type="button"
+                    id="startTeamBattle"
+                >
+                    ⚔️ COMEÇAR BATALHA
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
     <script src="script.js"></script>
 
 </body>
+
 </html>
