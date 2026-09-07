@@ -5,59 +5,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pokedex do Brizz</title>
+    <title>Pokedex-Brizz</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1>Pokedex-Brizz</h1>
+    <header class="header">
 
-    <h3>Primeiro projeto!</h3>
+        <div class="logo">
+            <span>POKEDEX</span>
+            <strong>BRIZZ</strong>
+        </div>
 
-    <div class="controls">
+        <p>Explore o mundo Pokémon</p>
 
-        <input
-            type="text"
-            id="search"
-            placeholder="Pesquisar Pokémon..."
-        >
+    </header>
 
-        <select id="typeFilter">
-            <option value="all">Todos os tipos</option>
-            <option value="normal">Normal</option>
-            <option value="fire">Fogo</option>
-            <option value="water">Água</option>
-            <option value="electric">Elétrico</option>
-            <option value="grass">Grama</option>
-            <option value="ice">Gelo</option>
-            <option value="fighting">Lutador</option>
-            <option value="poison">Veneno</option>
-            <option value="ground">Terrestre</option>
-            <option value="flying">Voador</option>
-            <option value="psychic">Psíquico</option>
-            <option value="bug">Inseto</option>
-            <option value="rock">Pedra</option>
-            <option value="ghost">Fantasma</option>
-            <option value="dragon">Dragão</option>
-            <option value="dark">Sombrio</option>
-            <option value="steel">Aço</option>
-            <option value="fairy">Fada</option>
-        </select>
+    <main>
 
-        <button id="randomPokemon">🎲 Sortear Pokémon</button>
+        <section class="controls">
 
-        <button id="guessGame">🎮 Quem é esse Pokémon?</button>
+            <div class="searchBox">
+                🔎
+                <input
+                    type="text"
+                    id="search"
+                    placeholder="Pesquisar Pokémon..."
+                >
+            </div>
 
-    </div>
+            <select id="typeFilter">
+                <option value="all">Todos os tipos</option>
+                <option value="normal">Normal</option>
+                <option value="fire">Fogo</option>
+                <option value="water">Água</option>
+                <option value="electric">Elétrico</option>
+                <option value="grass">Grama</option>
+                <option value="ice">Gelo</option>
+                <option value="fighting">Lutador</option>
+                <option value="poison">Veneno</option>
+                <option value="ground">Terrestre</option>
+                <option value="flying">Voador</option>
+                <option value="psychic">Psíquico</option>
+                <option value="bug">Inseto</option>
+                <option value="rock">Pedra</option>
+                <option value="ghost">Fantasma</option>
+                <option value="dragon">Dragão</option>
+                <option value="dark">Sombrio</option>
+                <option value="steel">Aço</option>
+                <option value="fairy">Fada</option>
+            </select>
 
-    <div class="pokeContainer" id="pokeContainer">
-    </div>
+            <button id="randomPokemon">🎲 Sortear</button>
+
+            <button id="guessGame">🎮 Quem é esse?</button>
+
+        </section>
+
+        <section class="generations">
+
+            <button class="generation active" data-generation="all">
+                TODOS
+            </button>
+
+            <button class="generation" data-generation="1">
+                I
+            </button>
+
+            <button class="generation" data-generation="2">
+                II
+            </button>
+
+            <button class="generation" data-generation="3">
+                III
+            </button>
+
+            <button class="generation" data-generation="4">
+                IV
+            </button>
+
+            <button class="generation" data-generation="5">
+                V
+            </button>
+
+            <button class="generation" data-generation="6">
+                VI
+            </button>
+
+            <button class="generation" data-generation="7">
+                VII
+            </button>
+
+            <button class="generation" data-generation="8">
+                VIII
+            </button>
+
+            <button class="generation" data-generation="9">
+                IX
+            </button>
+
+        </section>
+
+        <section class="regionTitle">
+
+            <span id="regionGeneration">TODOS OS POKÉMON</span>
+
+            <h2 id="regionName">Pokémon</h2>
+
+            <p id="regionNumber">#001 — #151</p>
+
+        </section>
+
+        <div class="pokeContainer" id="pokeContainer"></div>
+
+    </main>
 
     <div class="detailsOverlay" id="detailsOverlay">
 
-        <div class="detailsCard" id="detailsCard">
+        <div class="detailsCard">
 
             <button class="closeDetails" id="closeDetails">✕</button>
 
@@ -87,7 +154,7 @@
 
             <p id="gameResult"></p>
 
-            <p>
+            <p class="score">
                 🏆 Pontuação:
                 <span id="score">0</span>
             </p>
