@@ -1,9 +1,15 @@
 const pokeContainer = document.querySelector("#pokeContainer");
 
-const pokemonCount = 1025;
+const pokemonCount = 151;
 
 const search = document.querySelector("#search");
 const typeFilter = document.querySelector("#typeFilter");
+
+const zoomOverlay = document.createElement("div");
+
+zoomOverlay.classList.add("zoomOverlay");
+
+document.body.appendChild(zoomOverlay);
 
 const colors = {
     fire: '#f5cbc8',
@@ -19,7 +25,11 @@ const colors = {
     psychic: '#f8bcee',
     flying: '#F5F5F5',
     fighting: '#E6E0D4',
-    normal: '#F5F5F5'
+    normal: '#F5F5F5',
+    ice: '#ccecff',
+    ghost: '#c9b6e4',
+    dark: '#a9a9a9',
+    steel: '#d0d0d0'
 };
 
 const mainTypes = Object.keys(colors);
@@ -32,8 +42,10 @@ const fetchPokemons = async () => {
 
 const getPokemon = async (id) => {
     const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+
     const resp = await fetch(url);
     const data = await resp.json();
+
     createPokemonCard(data);
 };
 
@@ -52,8 +64,8 @@ const createPokemonCard = (poke) => {
 
     card.dataset.types = pokeTypes.join(",");
 
-    const type = mainTypes.find(type => pokeTypes.indexOf(type) > -1);
-    const color = colors[type];
+    const type = mainTypes.find(type => pokeTypes.includes(type)) || pokeTypes[0];
+    const color = colors[type] || '#eee';
 
     card.style.backgroundColor = color;
 
@@ -72,11 +84,27 @@ const createPokemonCard = (poke) => {
     card.innerHTML = pokemonInnerHTML;
 
     pokeContainer.appendChild(card);
+
+    card.addEventListener("click", () => {
+        const zoomedPokemon = document.querySelector(".pokemon.zoomed");
+
+        if (zoomedPokemon && zoomedPokemon !== card) {
+            zoomedPokemon.classList.remove("zoomed");
+        }
+
+        card.classList.toggle("zoomed");
+
+        zoomOverlay.classList.toggle(
+            "active",
+            card.classList.contains("zoomed")
+        );
+    });
 };
 
 const filterPokemons = () => {
     const searchValue = search.value.toLowerCase().trim();
     const selectedType = typeFilter.value;
+
     const pokemons = document.querySelectorAll(".pokemon");
 
     pokemons.forEach(pokemon => {
@@ -101,5 +129,27 @@ const filterPokemons = () => {
 search.addEventListener("input", filterPokemons);
 
 typeFilter.addEventListener("change", filterPokemons);
+
+zoomOverlay.addEventListener("click", () => {
+    const zoomedPokemon = document.querySelector(".pokemon.zoomed");
+
+    if (zoomedPokemon) {
+        zoomedPokemon.classList.remove("zoomed");
+    }
+
+    zoomOverlay.classList.remove("active");
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+        const zoomedPokemon = document.querySelector(".pokemon.zoomed");
+
+        if (zoomedPokemon) {
+            zoomedPokemon.classList.remove("zoomed");
+        }
+
+        zoomOverlay.classList.remove("active");
+    }
+});
 
 fetchPokemons();
