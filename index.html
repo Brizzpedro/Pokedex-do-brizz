@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pokedex-Brizz</title>
+    <title>Pokedex</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -13,14 +12,12 @@
 <body>
 
     <header class="header">
-
         <div class="logo">
             <span>POKEDEX</span>
             <strong>BRIZZ</strong>
         </div>
 
         <p>Explore o mundo Pokémon</p>
-
     </header>
 
     <main>
@@ -28,7 +25,7 @@
         <section class="controls">
 
             <div class="searchBox">
-                🔎
+                <span>🔎</span>
                 <input
                     type="text"
                     id="search"
@@ -58,9 +55,11 @@
                 <option value="fairy">Fada</option>
             </select>
 
-            <button id="randomPokemon">🎲 Sortear</button>
+            <button id="randomPokemon">🎲 ALEATÓRIO</button>
 
-            <button id="guessGame">🎮 Quem é esse?</button>
+            <button id="guessGame">🎮 QUEM É?</button>
+
+            <button id="battleButton">⚔️ BATALHAR</button>
 
         </section>
 
@@ -110,23 +109,40 @@
 
         <section class="regionTitle">
 
-            <span id="regionGeneration">TODOS OS POKÉMON</span>
+            <span id="regionGeneration">
+                TODAS AS GERAÇÕES
+            </span>
 
-            <h2 id="regionName">Pokémon</h2>
+            <h2 id="regionName">
+                TODOS OS POKÉMON
+            </h2>
 
-            <p id="regionNumber">#001 — #151</p>
+            <p id="regionNumber">
+                1025 Pokémon
+            </p>
 
         </section>
 
-        <div class="pokeContainer" id="pokeContainer"></div>
+        <section
+            id="pokeContainer"
+            class="pokeContainer"
+        ></section>
 
     </main>
 
-    <div class="detailsOverlay" id="detailsOverlay">
+    <div
+        id="detailsOverlay"
+        class="detailsOverlay"
+    >
 
         <div class="detailsCard">
 
-            <button class="closeDetails" id="closeDetails">✕</button>
+            <button
+                id="closeDetails"
+                class="closeDetails"
+            >
+                ✕
+            </button>
 
             <div id="detailsContent"></div>
 
@@ -134,30 +150,135 @@
 
     </div>
 
-    <div class="gameOverlay" id="gameOverlay">
+    <div
+        id="gameOverlay"
+        class="gameOverlay"
+    >
 
         <div class="gameCard">
 
-            <button class="closeGame" id="closeGame">✕</button>
+            <button
+                id="closeGame"
+                class="closeGame"
+            >
+                ✕
+            </button>
 
-            <h2>Quem é esse Pokémon?</h2>
+            <h2>🎮 QUEM É ESSE POKÉMON?</h2>
 
-            <img id="gameImage" class="gameImage">
+            <img
+                id="gameImage"
+                class="gameImage"
+                src=""
+                alt="Pokémon"
+            >
 
             <input
                 type="text"
-                id="guessInput"
-                placeholder="Digite o nome..."
+                id="gameInput"
+                placeholder="Digite o nome do Pokémon..."
+                autocomplete="off"
             >
 
-            <button id="guessButton">Adivinhar</button>
+            <button id="gameSubmit">
+                RESPONDER
+            </button>
 
-            <p id="gameResult"></p>
+            <div id="gameResult"></div>
 
-            <p class="score">
-                🏆 Pontuação:
-                <span id="score">0</span>
+            <div class="score">
+                Pontuação: <span id="score">0</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div
+        id="battleOverlay"
+        class="battleOverlay"
+    >
+
+        <div class="battleModal">
+
+            <button
+                id="closeBattle"
+                class="closeBattle"
+            >
+                ✕
+            </button>
+
+            <h2>⚔️ BATALHA POKÉMON</h2>
+
+            <p class="battleSubtitle">
+                Escolha dois Pokémon para começar a batalha
             </p>
+
+            <div class="battleSelectors">
+
+                <div class="battleSelector">
+
+                    <label>
+                        Pokémon 1
+                    </label>
+
+                    <input
+                        type="text"
+                        id="battleSearch1"
+                        class="battleSearch"
+                        placeholder="Pesquisar Pokémon..."
+                        autocomplete="off"
+                    >
+
+                    <select id="battlePokemon1"></select>
+
+                    <div
+                        id="preview1"
+                        class="battlePreview"
+                    ></div>
+
+                </div>
+
+                <div class="battleVS">
+                    VS
+                </div>
+
+                <div class="battleSelector">
+
+                    <label>
+                        Pokémon 2
+                    </label>
+
+                    <input
+                        type="text"
+                        id="battleSearch2"
+                        class="battleSearch"
+                        placeholder="Pesquisar Pokémon..."
+                        autocomplete="off"
+                    >
+
+                    <select id="battlePokemon2"></select>
+
+                    <div
+                        id="preview2"
+                        class="battlePreview"
+                    ></div>
+
+                </div>
+
+            </div>
+
+            <button
+                id="startBattle"
+                class="startBattle"
+            >
+                ⚔️ COMEÇAR BATALHA
+            </button>
+
+            <div
+                id="battleArena"
+                class="battleArena"
+            ></div>
 
         </div>
 
@@ -166,5 +287,4 @@
     <script src="script.js"></script>
 
 </body>
-
 </html>
