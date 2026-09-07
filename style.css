@@ -1,4 +1,3 @@
-```css
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
 
 * {
@@ -8,27 +7,81 @@
     font-family: 'Roboto', sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     min-height: 100vh;
     color: #ffffff;
     background:
-        radial-gradient(circle at top left, #31245c 0%, transparent 35%),
-        radial-gradient(circle at bottom right, #471f55 0%, transparent 35%),
+        radial-gradient(circle at 10% 10%, #31245c 0%, transparent 32%),
+        radial-gradient(circle at 90% 90%, #471f55 0%, transparent 32%),
+        radial-gradient(circle at 50% 50%, #171127 0%, transparent 45%),
         #0d0b18;
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(109, 74, 255, 0.08), transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(155, 124, 255, 0.06), transparent 25%);
+    animation: backgroundFloat 12s ease-in-out infinite alternate;
+}
+
+button,
+select,
+input {
+    font-family: inherit;
+}
+
+button {
+    user-select: none;
 }
 
 .header {
+    position: relative;
     padding: 40px 7%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(13, 11, 24, 0.25);
+    backdrop-filter: blur(12px);
+    animation: headerEnter 0.8s ease both;
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    left: 7%;
+    bottom: -1px;
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #8064ff,
+        transparent
+    );
+    animation: headerLine 3s ease-in-out infinite;
 }
 
 .logo {
     display: flex;
     flex-direction: column;
     line-height: 0.9;
+    transition: 0.3s ease;
+}
+
+.logo:hover {
+    transform: translateY(-2px);
 }
 
 .logo span {
@@ -42,11 +95,27 @@ body {
     font-size: 42px;
     font-weight: 900;
     letter-spacing: 2px;
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #b7aaff,
+        #8064ff
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: logoGradient 5s ease infinite;
 }
 
 .header p {
     color: #aaa5b9;
     font-size: 15px;
+    transition: 0.3s ease;
+}
+
+.header:hover p {
+    color: #c6c0d3;
 }
 
 main {
@@ -60,9 +129,11 @@ main {
     gap: 12px;
     padding: 35px 0 20px;
     flex-wrap: wrap;
+    animation: controlsEnter 0.8s ease 0.1s both;
 }
 
 .searchBox {
+    position: relative;
     flex: 1;
     min-width: 250px;
     display: flex;
@@ -72,9 +143,50 @@ main {
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 14px;
+    transition: 0.3s ease;
+    overflow: hidden;
+}
+
+.searchBox::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(109, 74, 255, 0.12),
+        transparent
+    );
+    transition: 0.6s ease;
+}
+
+.searchBox:focus-within {
+    border-color: rgba(109, 74, 255, 0.65);
+    background: rgba(109, 74, 255, 0.08);
+    box-shadow:
+        0 0 0 3px rgba(109, 74, 255, 0.08),
+        0 8px 35px rgba(109, 74, 255, 0.12);
+    transform: translateY(-2px);
+}
+
+.searchBox:focus-within::before {
+    left: 100%;
+}
+
+.searchBox span {
+    transition: 0.3s ease;
+}
+
+.searchBox:focus-within span {
+    transform: scale(1.15) rotate(-8deg);
 }
 
 .searchBox input {
+    position: relative;
+    z-index: 1;
     width: 100%;
     border: none;
     outline: none;
@@ -98,7 +210,11 @@ select,
     border: 1px solid rgba(255, 255, 255, 0.08);
     cursor: pointer;
     font-weight: 700;
-    transition: 0.2s;
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 select {
@@ -111,8 +227,42 @@ select option {
 
 .controls button:hover,
 select:hover {
-    background: rgba(255, 255, 255, 0.13);
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(109, 74, 255, 0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.controls button:active,
+select:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+#randomPokemon:hover {
+    box-shadow: 0 8px 30px rgba(109, 74, 255, 0.2);
+}
+
+#guessGame:hover {
+    box-shadow: 0 8px 30px rgba(109, 74, 255, 0.2);
+}
+
+#battleButton {
+    background: linear-gradient(
+        135deg,
+        rgba(109, 74, 255, 0.18),
+        rgba(155, 124, 255, 0.08)
+    );
+    border-color: rgba(109, 74, 255, 0.25);
+}
+
+#battleButton:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(109, 74, 255, 0.3),
+        rgba(155, 124, 255, 0.14)
+    );
+    border-color: rgba(109, 74, 255, 0.55);
+    box-shadow: 0 8px 35px rgba(109, 74, 255, 0.2);
 }
 
 .generations {
@@ -120,9 +270,11 @@ select:hover {
     gap: 8px;
     flex-wrap: wrap;
     padding: 10px 0 35px;
+    animation: controlsEnter 0.8s ease 0.2s both;
 }
 
 .generation {
+    position: relative;
     min-width: 50px;
     padding: 10px 15px;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -131,22 +283,50 @@ select:hover {
     color: #aaa5b9;
     cursor: pointer;
     font-weight: 700;
-    transition: 0.2s;
+    transition: 0.25s ease;
+    overflow: hidden;
+}
+
+.generation::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.08),
+        transparent
+    );
+    transform: translateX(-100%);
+    transition: 0.5s ease;
+}
+
+.generation:hover::before {
+    transform: translateX(100%);
 }
 
 .generation:hover {
     color: white;
     background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
 }
 
 .generation.active {
     color: white;
-    background: #6d4aff;
+    background: linear-gradient(
+        135deg,
+        #6d4aff,
+        #8064ff
+    );
     border-color: #6d4aff;
+    box-shadow:
+        0 6px 25px rgba(109, 74, 255, 0.28),
+        inset 0 1px rgba(255, 255, 255, 0.18);
 }
 
 .regionTitle {
     margin-bottom: 25px;
+    animation: regionEnter 0.7s ease 0.25s both;
 }
 
 .regionTitle span {
@@ -159,6 +339,14 @@ select:hover {
 .regionTitle h2 {
     font-size: 34px;
     margin-top: 5px;
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #c9c1ff
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .regionTitle p {
@@ -179,50 +367,152 @@ select:hover {
     padding: 20px;
     min-height: 260px;
     border-radius: 22px;
-    background: rgba(255, 255, 255, 0.06);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.075),
+            rgba(255, 255, 255, 0.025)
+        );
     border: 1px solid rgba(255, 255, 255, 0.08);
     cursor: pointer;
-    transition: 0.25s;
+    transition:
+        transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color 0.35s ease,
+        background 0.35s ease,
+        box-shadow 0.35s ease;
+    animation: cardEnter 0.6s ease both;
+}
+
+.pokemon::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    top: -90px;
+    right: -70px;
+    border-radius: 50%;
+    background: rgba(109, 74, 255, 0.08);
+    filter: blur(35px);
+    transition: 0.5s ease;
+    pointer-events: none;
+}
+
+.pokemon::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.07),
+        transparent 35%,
+        transparent 65%,
+        rgba(109, 74, 255, 0.06)
+    );
+    opacity: 0;
+    transition: 0.4s ease;
+    pointer-events: none;
 }
 
 .pokemon:hover {
-    transform: translateY(-7px);
-    border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.09);
+    transform: translateY(-9px) scale(1.015);
+    border-color: rgba(142, 124, 255, 0.38);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(109, 74, 255, 0.12),
+            rgba(255, 255, 255, 0.045)
+        );
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.35),
+        0 0 30px rgba(109, 74, 255, 0.12);
+}
+
+.pokemon:hover::before {
+    transform: scale(1.5);
+    background: rgba(109, 74, 255, 0.16);
+}
+
+.pokemon:hover::after {
+    opacity: 1;
 }
 
 .pokemon .number {
+    position: relative;
+    z-index: 2;
     color: rgba(255, 255, 255, 0.4);
     font-size: 13px;
     font-weight: 700;
+    transition: 0.3s ease;
+}
+
+.pokemon:hover .number {
+    color: #9b8cff;
 }
 
 .pokemon .name {
+    position: relative;
+    z-index: 2;
     margin-top: 5px;
     font-size: 21px;
     font-weight: 900;
     text-transform: capitalize;
+    transition: 0.3s ease;
+}
+
+.pokemon:hover .name {
+    text-shadow: 0 0 20px rgba(155, 124, 255, 0.25);
 }
 
 .imgContainer {
+    position: relative;
+    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 175px;
 }
 
+.imgContainer::before {
+    content: "";
+    position: absolute;
+    width: 110px;
+    height: 55px;
+    bottom: 15px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.2);
+    filter: blur(12px);
+    transition: 0.4s ease;
+}
+
 .imgContainer img {
+    position: relative;
+    z-index: 2;
     width: 160px;
     height: 160px;
     object-fit: contain;
-    transition: 0.25s;
+    transition:
+        transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+        filter 0.4s ease;
+    animation: pokemonFloat 4s ease-in-out infinite;
 }
 
 .pokemon:hover .imgContainer img {
-    transform: scale(1.08);
+    transform: scale(1.13) translateY(-5px);
+    filter:
+        drop-shadow(0 12px 15px rgba(0, 0, 0, 0.3))
+        drop-shadow(0 0 20px rgba(142, 124, 255, 0.18));
+    animation-play-state: paused;
+}
+
+.pokemon:hover .imgContainer::before {
+    transform: scale(0.8);
+    opacity: 0.5;
 }
 
 .type {
+    position: relative;
+    z-index: 3;
     display: inline-block;
     padding: 6px 10px;
     margin: 3px 3px 0 0;
@@ -231,6 +521,12 @@ select:hover {
     font-size: 11px;
     font-weight: 900;
     text-transform: uppercase;
+    transition: 0.25s ease;
+}
+
+.type:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
 }
 
 .detailsOverlay,
@@ -249,6 +545,12 @@ select:hover {
 .detailsOverlay.active,
 .gameOverlay.active {
     display: flex;
+    animation: overlayFade 0.3s ease both;
+}
+
+.detailsOverlay.active .detailsCard,
+.gameOverlay.active .gameCard {
+    animation: modalEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .detailsCard,
@@ -260,14 +562,37 @@ select:hover {
     overflow-y: auto;
     padding: 35px;
     border-radius: 28px;
-    background: #15121f;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(25, 20, 37, 0.98),
+            rgba(17, 14, 27, 0.98)
+        );
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.5),
+        0 0 50px rgba(109, 74, 255, 0.08);
+}
+
+.detailsCard::before,
+.gameCard::before {
+    content: "";
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: rgba(109, 74, 255, 0.1);
+    filter: blur(50px);
+    pointer-events: none;
 }
 
 .closeDetails,
 .closeGame {
     position: absolute;
+    z-index: 10;
     top: 18px;
     right: 18px;
     width: 38px;
@@ -278,9 +603,18 @@ select:hover {
     color: white;
     font-size: 18px;
     cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.closeDetails:hover,
+.closeGame:hover {
+    background: rgba(255, 70, 100, 0.18);
+    transform: rotate(90deg) scale(1.08);
 }
 
 .detailsHeader {
+    position: relative;
+    z-index: 2;
     text-align: center;
 }
 
@@ -288,12 +622,15 @@ select:hover {
     width: 220px;
     height: 220px;
     object-fit: contain;
+    animation: detailsPokemonEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.3));
 }
 
 .detailsNumber {
     color: #8170ff;
     font-size: 14px;
     font-weight: 700;
+    animation: textEnter 0.5s ease 0.1s both;
 }
 
 .detailsName {
@@ -301,14 +638,27 @@ select:hover {
     font-size: 34px;
     font-weight: 900;
     text-transform: capitalize;
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #b8abff
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: textEnter 0.5s ease 0.15s both;
 }
 
 .detailsTypes {
     margin-bottom: 25px;
+    animation: textEnter 0.5s ease 0.2s both;
 }
 
 .stats {
+    position: relative;
+    z-index: 2;
     margin-top: 20px;
+    animation: contentEnter 0.6s ease 0.25s both;
 }
 
 .stats h3,
@@ -339,13 +689,24 @@ select:hover {
 .statFill {
     height: 100%;
     border-radius: 10px;
-    background: linear-gradient(90deg, #6d4aff, #9b7cff);
+    background: linear-gradient(
+        90deg,
+        #6d4aff,
+        #9b7cff,
+        #b8aaff
+    );
+    box-shadow: 0 0 12px rgba(109, 74, 255, 0.35);
+    transform-origin: left;
+    animation: statGrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .evolutionSection {
+    position: relative;
+    z-index: 2;
     margin-top: 35px;
     padding-top: 25px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
+    animation: contentEnter 0.6s ease 0.35s both;
 }
 
 .evolutionChain {
@@ -357,6 +718,7 @@ select:hover {
 }
 
 .evolutionItem {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -364,19 +726,28 @@ select:hover {
     padding: 12px;
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.05);
+    border: 1px solid transparent;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.3s ease;
+    animation: evolutionEnter 0.5s ease both;
 }
 
 .evolutionItem:hover {
-    transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-6px) scale(1.03);
+    background: rgba(109, 74, 255, 0.1);
+    border-color: rgba(109, 74, 255, 0.25);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .evolutionItem img {
     width: 90px;
     height: 90px;
     object-fit: contain;
+    transition: 0.3s ease;
+}
+
+.evolutionItem:hover img {
+    transform: scale(1.12);
 }
 
 .evolutionItem span {
@@ -395,6 +766,7 @@ select:hover {
     color: #8170ff;
     font-size: 25px;
     font-weight: 900;
+    animation: arrowPulse 1.5s ease-in-out infinite;
 }
 
 .noEvolution {
@@ -403,6 +775,7 @@ select:hover {
     color: #888291;
     border-radius: 15px;
     background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .gameCard {
@@ -412,6 +785,7 @@ select:hover {
 
 .gameCard h2 {
     margin-bottom: 20px;
+    animation: textEnter 0.5s ease both;
 }
 
 .gameImage {
@@ -419,6 +793,8 @@ select:hover {
     height: 250px;
     object-fit: contain;
     margin-bottom: 20px;
+    filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.35));
+    animation: gamePokemonEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .gameCard input {
@@ -431,6 +807,14 @@ select:hover {
     background: rgba(255, 255, 255, 0.06);
     text-align: center;
     font-size: 15px;
+    transition: 0.3s ease;
+}
+
+.gameCard input:focus {
+    border-color: #6d4aff;
+    background: rgba(109, 74, 255, 0.08);
+    box-shadow: 0 0 25px rgba(109, 74, 255, 0.12);
+    transform: translateY(-2px);
 }
 
 .gameCard > button:not(.closeGame) {
@@ -440,15 +824,31 @@ select:hover {
     border: none;
     border-radius: 12px;
     color: white;
-    background: #6d4aff;
+    background: linear-gradient(
+        135deg,
+        #6d4aff,
+        #8064ff
+    );
     cursor: pointer;
     font-weight: 800;
+    transition: 0.25s ease;
+    box-shadow: 0 8px 25px rgba(109, 74, 255, 0.2);
+}
+
+.gameCard > button:not(.closeGame):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(109, 74, 255, 0.35);
+}
+
+.gameCard > button:not(.closeGame):active {
+    transform: scale(0.98);
 }
 
 #gameResult {
     min-height: 25px;
     margin-top: 15px;
     font-weight: 700;
+    animation: resultEnter 0.3s ease both;
 }
 
 .score {
@@ -456,7 +856,741 @@ select:hover {
     color: #aaa5b9;
 }
 
+.battleOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(4, 3, 10, 0.88);
+    backdrop-filter: blur(12px);
+}
+
+.battleOverlay.active {
+    display: flex;
+    animation: overlayFade 0.3s ease both;
+}
+
+.battleOverlay.active .battleModal {
+    animation: battleModalEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.battleModal {
+    position: relative;
+    width: 100%;
+    max-width: 1050px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 35px;
+    border-radius: 28px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(25, 20, 37, 0.98),
+            rgba(17, 14, 27, 0.98)
+        );
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.5),
+        0 0 60px rgba(109, 74, 255, 0.1);
+    color: white;
+}
+
+.battleModal::before {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: -180px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: rgba(109, 74, 255, 0.1);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+.closeBattle {
+    position: absolute;
+    z-index: 10;
+    top: 18px;
+    right: 18px;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.closeBattle:hover {
+    background: rgba(255, 70, 100, 0.18);
+    transform: rotate(90deg) scale(1.08);
+}
+
+.battleModal h2 {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 30px;
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #a99aff,
+        #ffffff
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: logoGradient 4s ease infinite;
+}
+
+.battleSubtitle {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #888291;
+    margin-bottom: 25px;
+}
+
+.battleSelectors {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    align-items: center;
+    gap: 20px;
+}
+
+.battleSelector {
+    width: 100%;
+}
+
+.battleSelector label {
+    display: block;
+    margin-bottom: 8px;
+    color: #aaa5b9;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.battleSearch {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 12px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.06);
+    color: white;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.battleSearch::placeholder {
+    color: #777283;
+}
+
+.battleSearch:focus {
+    border-color: #6d4aff;
+    background: rgba(109, 74, 255, 0.08);
+    box-shadow: 0 0 20px rgba(109, 74, 255, 0.1);
+}
+
+.battleSelector select {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.07);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.battleSelector select:hover,
+.battleSelector select:focus {
+    border-color: rgba(109, 74, 255, 0.45);
+    background: rgba(109, 74, 255, 0.08);
+}
+
+.battleSelector select option {
+    color: #111;
+}
+
+.battleVS {
+    text-align: center;
+    color: #8170ff;
+    font-size: 25px;
+    font-weight: 900;
+    text-shadow: 0 0 20px rgba(129, 112, 255, 0.35);
+    animation: vsPulse 1.5s ease-in-out infinite;
+}
+
+.battlePreview {
+    min-height: 190px;
+    margin-top: 12px;
+    padding: 10px;
+    border-radius: 18px;
+    background:
+        radial-gradient(
+            circle,
+            rgba(109, 74, 255, 0.08),
+            rgba(255, 255, 255, 0.02)
+        );
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease;
+}
+
+.battlePreview:hover {
+    border-color: rgba(109, 74, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.battlePreview img {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.25));
+    animation: pokemonFloat 4s ease-in-out infinite;
+}
+
+.battlePreview strong {
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+.startBattle {
+    position: relative;
+    z-index: 2;
+    display: block;
+    margin: 25px auto;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 13px;
+    background: linear-gradient(
+        135deg,
+        #6d4aff,
+        #8064ff
+    );
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 900;
+    transition: 0.25s ease;
+    box-shadow: 0 8px 30px rgba(109, 74, 255, 0.25);
+}
+
+.startBattle:hover {
+    background: linear-gradient(
+        135deg,
+        #8064ff,
+        #927cff
+    );
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(109, 74, 255, 0.4);
+}
+
+.startBattle:active {
+    transform: scale(0.97);
+}
+
+.battleArena {
+    position: relative;
+    z-index: 2;
+    margin-top: 20px;
+}
+
+.fighters {
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr;
+    align-items: center;
+    gap: 20px;
+}
+
+.fighter {
+    position: relative;
+    padding: 20px;
+    border-radius: 20px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.06),
+            rgba(255, 255, 255, 0.025)
+        );
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: center;
+    transition: 0.3s ease;
+}
+
+.fighter:hover {
+    border-color: rgba(109, 74, 255, 0.25);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.fighter img {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.3));
+}
+
+.fighterTwo img {
+    transform: scaleX(-1);
+}
+
+.fighterInfo {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.fighterInfo strong {
+    text-transform: capitalize;
+}
+
+.fighterInfo span {
+    color: #aaa5b9;
+}
+
+.battleHp {
+    width: 100%;
+    height: 12px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.battleHpFill {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(
+        90deg,
+        #6d4aff,
+        #9b7cff,
+        #b8aaff
+    );
+    box-shadow: 0 0 15px rgba(109, 74, 255, 0.3);
+    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.battleMiddle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.battleMiddle strong {
+    color: #8170ff;
+    font-size: 28px;
+    text-shadow: 0 0 20px rgba(129, 112, 255, 0.35);
+}
+
+.battleMiddle span {
+    color: #888291;
+    font-size: 11px;
+}
+
+.battleStats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.battleStats div {
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid transparent;
+    transition: 0.25s ease;
+}
+
+.battleStats div:hover {
+    border-color: rgba(109, 74, 255, 0.18);
+    background: rgba(109, 74, 255, 0.06);
+    transform: translateY(-2px);
+}
+
+.battleStats strong {
+    display: block;
+    color: #aaa5b9;
+    font-size: 12px;
+}
+
+.battleStats span {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.winnerBox {
+    margin-top: 20px;
+    padding: 22px;
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(109, 74, 255, 0.1),
+            rgba(155, 124, 255, 0.04)
+        );
+    border: 1px solid rgba(109, 74, 255, 0.15);
+    text-align: center;
+    animation: winnerEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    box-shadow: 0 10px 35px rgba(109, 74, 255, 0.08);
+}
+
+.winnerBoxEmoji {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 32px;
+    animation: winnerPulse 1.5s ease-in-out infinite;
+}
+
+.winnerBox span {
+    display: block;
+    color: #888291;
+    font-size: 13px;
+}
+
+.winnerBox strong {
+    display: block;
+    margin-top: 5px;
+    color: #9b7cff;
+    font-size: 28px;
+    text-transform: capitalize;
+    text-shadow: 0 0 20px rgba(155, 124, 255, 0.25);
+}
+
+.attackAnimation {
+    animation: attackAnimation 0.4s ease;
+}
+
+.hitAnimation {
+    animation: hitAnimation 0.4s ease;
+}
+
+@keyframes backgroundFloat {
+    0% {
+        transform: translate3d(-2%, -1%, 0) scale(1);
+    }
+
+    100% {
+        transform: translate3d(2%, 1%, 0) scale(1.08);
+    }
+}
+
+@keyframes headerEnter {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes headerLine {
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scaleX(0.7);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scaleX(1.3);
+    }
+}
+
+@keyframes logoGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes controlsEnter {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes regionEnter {
+    from {
+        opacity: 0;
+        transform: translateX(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes cardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes pokemonFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes overlayFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalEnter {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes battleModalEnter {
+    from {
+        opacity: 0;
+        transform: translateY(35px) scale(0.9) rotateX(4deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateX(0);
+    }
+}
+
+@keyframes detailsPokemonEnter {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.75);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes gamePokemonEnter {
+    from {
+        opacity: 0;
+        transform: scale(0.75) rotate(-5deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+@keyframes textEnter {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes contentEnter {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes statGrow {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes evolutionEnter {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes arrowPulse {
+    0%,
+    100% {
+        opacity: 0.6;
+        transform: translateX(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateX(4px);
+    }
+}
+
+@keyframes vsPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: scale(1.12);
+        opacity: 1;
+    }
+}
+
+@keyframes resultEnter {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes winnerEnter {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes winnerPulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+}
+
+@keyframes attackAnimation {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(25px) scale(1.04);
+    }
+
+    100% {
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes hitAnimation {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-12px);
+    }
+
+    40% {
+        transform: translateX(12px);
+    }
+
+    60% {
+        transform: translateX(-9px);
+    }
+
+    80% {
+        transform: translateX(7px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
 @media (max-width: 700px) {
+
     .header {
         align-items: flex-start;
         flex-direction: column;
@@ -466,6 +1600,10 @@ select:hover {
 
     .logo strong {
         font-size: 34px;
+    }
+
+    .header p {
+        font-size: 13px;
     }
 
     .controls {
@@ -487,6 +1625,10 @@ select:hover {
         padding: 14px;
     }
 
+    .pokemon:hover {
+        transform: translateY(-5px) scale(1.01);
+    }
+
     .imgContainer {
         height: 140px;
     }
@@ -506,11 +1648,87 @@ select:hover {
         height: 180px;
     }
 
+    .detailsName {
+        font-size: 29px;
+    }
+
     .evolutionChain {
         flex-direction: column;
     }
 
     .evolutionArrow {
         transform: rotate(90deg);
+    }
+
+    .battleModal {
+        padding: 25px 18px;
+    }
+
+    .battleSelectors {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .battleVS {
+        margin: 5px 0;
+    }
+
+    .fighters {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .battleMiddle {
+        order: 2;
+    }
+
+    .fighter {
+        order: 1;
+    }
+
+    .fighterTwo {
+        order: 3;
+    }
+
+    .fighter img {
+        width: 170px;
+        height: 170px;
+    }
+
+    .battleStats {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.randomLoading {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 2px;
+    animation: randomPulse 0.5s infinite alternate;
+}
+
+@keyframes randomPulse {
+    from {
+        opacity: 0.4;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.05);
     }
 }
