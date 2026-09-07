@@ -16,55 +16,58 @@ body {
 }
 
 h1 {
-    margin-top: 25px;
-    margin-bottom: 2px;
-    letter-spacing: 6px;
-    font-size: 34px;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+    margin-top: 5px;
+    margin-bottom: 0;
+    letter-spacing: 5px;
+    font-size: 30px;
 }
 
 h3 {
-    margin-bottom: 12px;
-    font-size: 18px;
-    font-weight: 700;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 input {
-    width: 230px;
-    height: 38px;
-    padding: 0 15px;
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    width: 160px;
+    height: 35px;
+    padding: 0 12px;
+    border: none;
     border-radius: 20px;
     outline: none;
-    background: rgba(255, 255, 255, 0.85);
-    font-size: 14px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-    transition: 0.2s;
-    margin-right: 8px;
-}
-
-input:focus {
-    border-color: #ffffff;
-    transform: scale(1.03);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 select {
-    height: 38px;
-    margin-left: 5px;
-    padding: 0 12px;
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    height: 35px;
+    padding: 0 10px;
+    border: none;
     border-radius: 20px;
     outline: none;
-    background: rgba(255, 255, 255, 0.85);
-    font-size: 14px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
-select:focus {
-    border-color: #ffffff;
+button {
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+#randomPokemon,
+#guessGame {
+    padding: 9px 14px;
+    border-radius: 20px;
+    background-color: #ffffff;
 }
 
 .pokeContainer {
@@ -74,7 +77,7 @@ select:focus {
     justify-content: center;
     width: 100%;
     max-width: 1200px;
-    margin: 50px auto 0;
+    margin: 35px auto 0;
     padding: 20px;
 }
 
@@ -86,6 +89,7 @@ select:focus {
     padding: 20px;
     text-align: center;
     width: 150px;
+    cursor: pointer;
     transition: transform 0.2s ease;
 }
 
@@ -130,33 +134,135 @@ select:focus {
     font-size: 13px;
 }
 
-.pokemon {
-    cursor: pointer;
-}
-
-.zoomOverlay {
+.detailsOverlay,
+.gameOverlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 999;
+    background: rgba(0, 0, 0, 0.65);
     display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
 }
 
-.zoomOverlay.active {
-    display: block;
+.detailsOverlay.active,
+.gameOverlay.active {
+    display: flex;
 }
 
-.pokemon.zoomed {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(1.7);
-    z-index: 1000;
+.detailsCard,
+.gameCard {
+    position: relative;
+    width: 380px;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #eee;
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.closeDetails,
+.closeGame {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background: transparent;
+    font-size: 22px;
+}
+
+.detailsImage {
     width: 180px;
-    margin: 0;
-    transition: transform 0.3s ease;
+    height: 180px;
+    object-fit: contain;
 }
 
-.pokemon.zoomed:hover {
-    transform: translate(-50%, -50%) scale(1.75);
+.detailsName {
+    font-size: 28px;
+    margin: 5px 0;
+}
+
+.detailsNumber {
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+.detailsType {
+    display: inline-block;
+    margin: 10px 0 20px;
+    padding: 6px 15px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stat {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: left;
+}
+
+.stat strong {
+    display: block;
+    font-size: 13px;
+}
+
+.statBar {
+    width: 100%;
+    height: 10px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 6px 0;
+}
+
+.statFill {
+    height: 100%;
+    background: #555;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+.stat span {
+    display: block;
+    text-align: right;
+    font-size: 14px;
+}
+
+.gameCard h2 {
+    margin-bottom: 10px;
+}
+
+.gameImage {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    display: block;
+    margin: 10px auto;
+    filter: brightness(0);
+}
+
+#guessInput {
+    width: 75%;
+    margin: 10px 5px 10px 0;
+}
+
+#guessButton {
+    padding: 9px 15px;
+    border-radius: 20px;
+    background: #ffffff;
+}
+
+#gameResult {
+    font-weight: bold;
+    margin: 15px 0;
+    min-height: 20px;
 }
