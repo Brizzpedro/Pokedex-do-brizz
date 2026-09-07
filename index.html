@@ -13,43 +13,91 @@
 <body>
 
     <h1>Pokedex-Brizz</h1>
+
     <h3>Primeiro projeto!</h3>
 
-<input 
-    type="text" 
-    id="search" 
-    placeholder="Pesquisar Pokémon..."
->
-<select id="typeFilter">
-    <option value="all">Todos os tipos</option>
-    <option value="normal">Normal</option>
-    <option value="fire">Fogo</option>
-    <option value="water">Água</option>
-    <option value="electric">Elétrico</option>
-    <option value="grass">Grama</option>
-    <option value="ice">Gelo</option>
-    <option value="fighting">Lutador</option>
-    <option value="poison">Veneno</option>
-    <option value="ground">Terrestre</option>
-    <option value="flying">Voador</option>
-    <option value="psychic">Psíquico</option>
-    <option value="bug">Inseto</option>
-    <option value="rock">Pedra</option>
-    <option value="ghost">Fantasma</option>
-    <option value="dragon">Dragão</option>
-    <option value="dark">Sombrio</option>
-    <option value="steel">Aço</option>
-    <option value="fairy">Fada</option>
-</select>
+    <div class="controls">
 
-<div class="pokeContainer" id="pokeContainer">
+        <input
+            type="text"
+            id="search"
+            placeholder="Pesquisar Pokémon..."
+        >
+
+        <select id="typeFilter">
+            <option value="all">Todos os tipos</option>
+            <option value="normal">Normal</option>
+            <option value="fire">Fogo</option>
+            <option value="water">Água</option>
+            <option value="electric">Elétrico</option>
+            <option value="grass">Grama</option>
+            <option value="ice">Gelo</option>
+            <option value="fighting">Lutador</option>
+            <option value="poison">Veneno</option>
+            <option value="ground">Terrestre</option>
+            <option value="flying">Voador</option>
+            <option value="psychic">Psíquico</option>
+            <option value="bug">Inseto</option>
+            <option value="rock">Pedra</option>
+            <option value="ghost">Fantasma</option>
+            <option value="dragon">Dragão</option>
+            <option value="dark">Sombrio</option>
+            <option value="steel">Aço</option>
+            <option value="fairy">Fada</option>
+        </select>
+
+        <button id="randomPokemon">🎲 Sortear Pokémon</button>
+
+        <button id="guessGame">🎮 Quem é esse Pokémon?</button>
+
+    </div>
 
     <div class="pokeContainer" id="pokeContainer">
+    </div>
 
+    <div class="detailsOverlay" id="detailsOverlay">
+
+        <div class="detailsCard" id="detailsCard">
+
+            <button class="closeDetails" id="closeDetails">✕</button>
+
+            <div id="detailsContent"></div>
+
+        </div>
+
+    </div>
+
+    <div class="gameOverlay" id="gameOverlay">
+
+        <div class="gameCard">
+
+            <button class="closeGame" id="closeGame">✕</button>
+
+            <h2>Quem é esse Pokémon?</h2>
+
+            <img id="gameImage" class="gameImage">
+
+            <input
+                type="text"
+                id="guessInput"
+                placeholder="Digite o nome..."
+            >
+
+            <button id="guessButton">Adivinhar</button>
+
+            <p id="gameResult"></p>
+
+            <p>
+                🏆 Pontuação:
+                <span id="score">0</span>
+            </p>
+
+        </div>
 
     </div>
 
     <script src="script.js"></script>
 
 </body>
+
 </html>
